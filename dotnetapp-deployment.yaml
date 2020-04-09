@@ -1,28 +1,28 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: svc-master
+  name: default
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: dotnetapp-deployment
-  namespace: svc-master
+  name: simpleapp
+  namespace: default
   labels:
-    app: dotnetapp
+    app: simpleapp
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: dotnetapp
+      app: simpleapp
   template:
     metadata:
       labels:
-        app: dotnetapp
+        app: simpleapp
     spec:
       containers:
-      - name: dotnetapp
-        image: christianhxc/simpleapp:latest
+      - name: simpleapp
+        image: pramacr.azurecr.io/simpleapp:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 80
@@ -30,8 +30,8 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: dotnetapp
-  namespace: svc-master
+  name: simpleapp
+  namespace: default
 spec:
   type: LoadBalancer
   ports:
